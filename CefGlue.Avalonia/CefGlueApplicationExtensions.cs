@@ -29,6 +29,8 @@ namespace CefGlue.Avalonia
 
                 var mainArgs = new CefMainArgs(args);
                 var cefApp = new SampleCefApp();
+                cefApp.RegisterCustomSchemes += CefApp_RegisterCustomSchemes;
+                cefApp.WebKitInitialized += CefApp_WebKitInitialized;
 
                 var exitCode = CefRuntime.ExecuteProcess(mainArgs, cefApp, IntPtr.Zero);
                 if (exitCode != -1) { return; }
@@ -54,6 +56,16 @@ namespace CefGlue.Avalonia
 
                 }
             });
+        }
+
+        private static void CefApp_WebKitInitialized(object sender, EventArgs e)
+        {
+            AvaloniaCefBrowser.OnWebKitInitialized(sender, e);
+        }
+
+        private static void CefApp_RegisterCustomSchemes(object sender, RegisterCustomSchemesEventArgs e)
+        {
+            AvaloniaCefBrowser.OnRegisterCustomSchemes(sender, e);
         }
     }
 }

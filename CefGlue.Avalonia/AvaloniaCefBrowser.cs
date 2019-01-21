@@ -1606,6 +1606,18 @@ namespace CefGlue.Avalonia
         public event LoadErrorEventHandler LoadError;
         public event BrowserCreatedHandler BrowserCreated;
 
+        public static event EventHandler WebKitInitialized;
+        public static void OnWebKitInitialized(object sender, EventArgs e)
+        {
+            WebKitInitialized?.Invoke(sender, e);
+        }
+
+        public static event RegisterCustomSchemesHandler RegisterCustomSchemes;
+        public static void OnRegisterCustomSchemes(object sender, RegisterCustomSchemesEventArgs e)
+        {
+            RegisterCustomSchemes?.Invoke(sender, e);
+        }
+
         internal void OnLoadStart(CefFrame frame)
         {
             if (this.LoadStart != null)
